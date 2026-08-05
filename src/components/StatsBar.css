@@ -1,0 +1,115 @@
+.stats-bar {
+  position: relative;
+  z-index: 2;
+}
+
+.stats-bar.hero {
+  margin-top: -1px;
+  background: linear-gradient(180deg, rgba(107, 10, 55, 0.92), rgba(140, 13, 71, 0.96));
+  border-top: 1px solid rgba(255, 208, 224, 0.2);
+  color: var(--white);
+}
+
+.stats-bar.section {
+  background: var(--gradient-deep);
+  color: var(--white);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-pink);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  padding: 1.6rem 0;
+}
+
+.stats-bar.section .stats-grid {
+  padding: 2rem 1rem;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.stat-icon {
+  width: 28px;
+  height: 18px;
+  margin: 0 auto 0.55rem;
+  display: grid;
+  place-items: center;
+}
+
+.stat-icon span {
+  width: 18px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #ffd0e0, transparent);
+  position: relative;
+}
+
+.stat-icon span::before,
+.stat-icon span::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border: 1px solid #ffd0e0;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.stat-icon span::before {
+  left: -2px;
+}
+
+.stat-icon span::after {
+  right: -2px;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600;
+  color: #ffe4ec;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.stat-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    padding: 1.25rem 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    line-height: 1.35;
+  }
+
+  .stat-value {
+    font-size: clamp(1.35rem, 5vw, 1.85rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-bar.section .stats-grid {
+    padding: 1.35rem 0.5rem;
+  }
+}

@@ -1,0 +1,140 @@
+.portfolio-section {
+  background: var(--cream);
+}
+
+.portfolio-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 0.45rem;
+  margin-bottom: 2.25rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 0.25rem;
+}
+
+.portfolio-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  border: 1px solid var(--border-soft);
+  background: transparent;
+  color: var(--ink-soft);
+  padding: 0.55rem 1rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tab:hover,
+.tab.active {
+  background: var(--gradient-accent);
+  border-color: transparent;
+  color: var(--white);
+  box-shadow: 0 8px 20px rgba(212, 20, 106, 0.25);
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.85rem;
+}
+
+.portfolio-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  aspect-ratio: 3 / 4.4;
+  background: var(--pink-100);
+}
+
+.portfolio-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s ease;
+}
+
+.portfolio-card:hover img {
+  transform: scale(1.08);
+}
+
+.portfolio-meta {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 1.4rem 0.9rem 0.9rem;
+  background: linear-gradient(180deg, transparent, rgba(107, 10, 55, 0.88));
+  color: var(--white);
+  transform: translateY(12px);
+  opacity: 0.95;
+  transition: transform 0.3s ease;
+}
+
+.portfolio-card:hover .portfolio-meta {
+  transform: translateY(0);
+}
+
+.portfolio-meta span {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ffd0e0;
+}
+
+.portfolio-meta h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin-top: 0.2rem;
+}
+
+.portfolio-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.25rem;
+}
+
+@media (max-width: 1100px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .portfolio-tabs {
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 1101px) {
+  .portfolio-tabs {
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 700px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+
+  .portfolio-meta h3 {
+    font-size: 0.95rem;
+  }
+
+  .portfolio-meta {
+    padding: 1.1rem 0.7rem 0.7rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

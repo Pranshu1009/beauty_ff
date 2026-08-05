@@ -1,0 +1,44 @@
+.page-hero {
+  position: relative;
+  min-height: 320px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--white);
+  background: var(--gradient-hero);
+  overflow: hidden;
+}
+
+.page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 182, 208, 0.35), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.12), transparent 35%);
+}
+
+.page-hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 0 3.5rem;
+}
+
+.page-hero .eyebrow {
+  color: #ffd0e0;
+  margin-bottom: 0.75rem;
+}
+
+.page-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.page-hero-sub {
+  max-width: 520px;
+  margin: 0 auto 1.5rem;
+  font-weight: 300;
+  opacity: 0.92;
+}
