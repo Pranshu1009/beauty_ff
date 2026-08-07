@@ -1,11 +1,7 @@
 import { Link } from "react-router-dom";
 import Icon from "./Icon";
-import { AVAILABLE_FOR, NAV_LINKS } from "../data";
+import { AVAILABLE_FOR, CONTACT, NAV_LINKS } from "../data";
 import "./Footer.css";
-
-const PHONE = "+919999999999";
-const WHATSAPP = "https://wa.me/919999999999";
-const INSTAGRAM = "https://instagram.com/roshanichaurasiya";
 
 export default function Footer() {
   return (
@@ -48,7 +44,7 @@ export default function Footer() {
           <div className="footer-socials">
             <a
               className="footer-social"
-              href={WHATSAPP}
+              href={CONTACT.whatsappUrl}
               target="_blank"
               rel="noreferrer"
               aria-label="WhatsApp"
@@ -58,7 +54,7 @@ export default function Footer() {
             </a>
             <a
               className="footer-social"
-              href={INSTAGRAM}
+              href={CONTACT.instagramUrl}
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram"
@@ -68,7 +64,7 @@ export default function Footer() {
             </a>
             <a
               className="footer-social"
-              href={`tel:${PHONE}`}
+              href={`tel:${CONTACT.phoneTel}`}
               aria-label="Call"
               title="Call"
             >

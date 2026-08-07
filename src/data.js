@@ -155,6 +155,15 @@ export const AVAILABLE_FOR = [
   "Destination Weddings",
 ];
 
+export const CONTACT = {
+  phoneDisplay: "+91 84337 71695",
+  phoneTel: "+918433771695",
+  email: "makeupbyroshani22@gmail.com",
+  instagramHandle: "makeup.by_roshani",
+  instagramUrl: "https://instagram.com/makeup.by_roshani",
+  whatsappUrl: "https://wa.me/918433771695",
+};
+
 export const SHOW_ITEMS = [
   {
     id: "t1",

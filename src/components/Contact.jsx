@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IMAGES } from "../data";
+import { CONTACT, IMAGES } from "../data";
 import "./Contact.css";
 
 const initial = {
@@ -46,16 +46,16 @@ export default function Contact() {
             </li>
             <li>
               <strong>Phone</strong>
-              <a href="tel:+919999999999">+91 99999 99999</a>
+              <a href={`tel:${CONTACT.phoneTel}`}>{CONTACT.phoneDisplay}</a>
             </li>
             <li>
               <strong>Email</strong>
-              <a href="mailto:hello@roshanichaurasiya.com">hello@roshanichaurasiya.com</a>
+              <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
             </li>
             <li>
               <strong>Instagram</strong>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer">
-                @roshanichaurasiya
+              <a href={CONTACT.instagramUrl} target="_blank" rel="noreferrer">
+                @{CONTACT.instagramHandle}
               </a>
             </li>
           </ul>
