@@ -1,5 +1,10 @@
 const TOKEN_KEY = "roshani_owner_token";
 
+/** Local Vite uses proxy; production talks to Render directly. */
+const API_BASE =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD ? "https://beauty-ff.onrender.com" : "");
+
 export function getToken() {
   return sessionStorage.getItem(TOKEN_KEY) || "";
 }
@@ -17,7 +22,7 @@ export async function api(path, { method = "GET", body, auth = false } = {}) {
     if (token) headers.Authorization = `Bearer ${token}`;
   }
 
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${API_BASE}/api${path}`, {
     method,
     headers,
     body: body !== undefined ? JSON.stringify(body) : undefined,
