@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
-import { AVAILABLE_FOR, INSTAGRAM_GRID, NAV_LINKS } from "../data";
+import Icon from "./Icon";
+import { AVAILABLE_FOR, NAV_LINKS } from "../data";
 import "./Footer.css";
+
+const PHONE = "+919999999999";
+const WHATSAPP = "https://wa.me/919999999999";
+const INSTAGRAM = "https://instagram.com/roshanichaurasiya";
 
 export default function Footer() {
   return (
@@ -39,30 +44,38 @@ export default function Footer() {
         </div>
 
         <div className="footer-col footer-follow">
-          <h4>Follow Me</h4>
-          <a
-            className="ig-handle"
-            href="https://instagram.com"
-            target="_blank"
-            rel="noreferrer"
-          >
-            @roshanichaurasiya
-          </a>
-          <div className="ig-grid">
-            {INSTAGRAM_GRID.map((src) => (
-              <img key={src} src={src} alt="Instagram look" loading="lazy" />
-            ))}
+          <h4>Connect</h4>
+          <div className="footer-socials">
+            <a
+              className="footer-social"
+              href={WHATSAPP}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="WhatsApp"
+              title="WhatsApp"
+            >
+              <Icon name="whatsapp" />
+            </a>
+            <a
+              className="footer-social"
+              href={INSTAGRAM}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+              title="Instagram"
+            >
+              <Icon name="instagram" />
+            </a>
+            <a
+              className="footer-social"
+              href={`tel:${PHONE}`}
+              aria-label="Call"
+              title="Call"
+            >
+              <Icon name="phone" />
+            </a>
           </div>
         </div>
-
-        <a
-          className="btn btn-solid whatsapp-btn"
-          href="https://wa.me/919999999999"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Chat on WhatsApp
-        </a>
       </div>
 
       <div className="footer-bottom">
