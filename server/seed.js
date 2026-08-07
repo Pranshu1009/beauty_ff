@@ -28,6 +28,32 @@ export async function seedDefaults() {
   }
   await ShowItem.updateMany({}, { $unset: { section: 1 } });
 
+  // Migrate legacy single `image` field → `images` array
+  const legacyDocs = await ShowItem.collection
+    .find({
+      $and: [
+        {
+          $or: [
+            { images: { $exists: false } },
+            { images: null },
+            { images: { $size: 0 } },
+          ],
+        },
+        { image: { $type: "string" } },
+      ],
+    })
+    .toArray();
+
+  for (const doc of legacyDocs) {
+    await ShowItem.collection.updateOne(
+      { _id: doc._id },
+      { $set: { images: [doc.image] }, $unset: { image: "" } }
+    );
+  }
+  if (legacyDocs.length) {
+    console.log(`Migrated ${legacyDocs.length} TV shows to multi-image format`);
+  }
+
   const showCount = await ShowItem.countDocuments();
   if (showCount === 0) {
     await ShowItem.insertMany(DEFAULT_SHOWS);

@@ -161,30 +161,35 @@ export const SHOW_ITEMS = [
     title: "Indian Idol",
     subtitle: "Seasons 13 – 15",
     image: "/images/tv-1.jpg?v=shows1",
+    images: ["/images/tv-1.jpg?v=shows1"],
   },
   {
     id: "t2",
     title: "Dance Deewane",
     subtitle: "National dance reality",
     image: "/images/tv-2.jpg?v=shows1",
+    images: ["/images/tv-2.jpg?v=shows1"],
   },
   {
     id: "t3",
     title: "Superstar Singer",
     subtitle: "Season 3",
     image: "/images/tv-3.jpg?v=shows1",
+    images: ["/images/tv-3.jpg?v=shows1"],
   },
   {
     id: "t4",
     title: "Battle of Bands",
     subtitle: "Live music competition",
     image: "/images/tv-4.jpg?v=shows1",
+    images: ["/images/tv-4.jpg?v=shows1"],
   },
   {
     id: "t5",
     title: "Bharat Ka Amrit Kalash",
     subtitle: "National celebration",
     image: "/images/tv-5.jpg?v=shows1",
+    images: ["/images/tv-5.jpg?v=shows1"],
   },
 ];
 

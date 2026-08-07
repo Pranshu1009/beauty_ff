@@ -4,7 +4,13 @@ const showItemSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
     subtitle: { type: String, default: "", trim: true },
-    image: { type: String, required: true },
+    images: {
+      type: [String],
+      validate: {
+        validator: (arr) => Array.isArray(arr) && arr.length > 0,
+        message: "At least one image is required.",
+      },
+    },
   },
   { timestamps: true }
 );

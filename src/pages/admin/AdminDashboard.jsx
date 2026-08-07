@@ -29,6 +29,9 @@ export default function AdminDashboard() {
   const [editingId, setEditingId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editSubtitle, setEditSubtitle] = useState("");
+  const [managingShowId, setManagingShowId] = useState(null);
+  const [extraFile, setExtraFile] = useState(null);
+  const [extraBusy, setExtraBusy] = useState(false);
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -55,11 +58,18 @@ export default function AdminDashboard() {
     setFile(null);
     setMessage("");
     setEditingId(null);
+    setManagingShowId(null);
+    setExtraFile(null);
   }, [area, activeCategory]);
 
   const filteredPortfolio = useMemo(
     () => portfolio.items.filter((item) => item.category === activeCategory),
     [portfolio.items, activeCategory]
+  );
+
+  const managingShow = useMemo(
+    () => shows.items.find((item) => String(item.id) === String(managingShowId)),
+    [shows.items, managingShowId]
   );
 
   const onLogout = () => {
@@ -85,8 +95,9 @@ export default function AdminDashboard() {
         });
         setMessage("Photo added — all visitors will see it on the portfolio.");
       } else {
-        await shows.addItem({ title, subtitle, image });
-        setMessage("Added to TV Work — all visitors will see it.");
+        const item = await shows.addItem({ title, subtitle, image });
+        setManagingShowId(item.id);
+        setMessage("Show created. Add more photos below if you like.");
       }
       setTitle("");
       setSubtitle("");
@@ -131,10 +142,43 @@ export default function AdminDashboard() {
         await portfolio.deleteItem(id);
       } else {
         await shows.deleteItem(id);
+        if (String(managingShowId) === String(id)) setManagingShowId(null);
       }
       setMessage("Deleted.");
     } catch (err) {
       setMessage(err.message || "Delete failed.");
+    }
+  };
+
+  const onAddShowPhoto = async (e) => {
+    e.preventDefault();
+    if (!managingShowId || !extraFile) {
+      setMessage("Choose a photo to add to this show.");
+      return;
+    }
+    setExtraBusy(true);
+    setMessage("");
+    try {
+      const image = await fileToDataUrl(extraFile);
+      await shows.addShowImage(managingShowId, image);
+      setExtraFile(null);
+      e.target.reset?.();
+      setMessage("Photo added to this show.");
+    } catch (err) {
+      setMessage(err.message || "Could not add photo.");
+    } finally {
+      setExtraBusy(false);
+    }
+  };
+
+  const onDeleteShowPhoto = async (index) => {
+    if (!managingShowId) return;
+    if (!window.confirm("Remove this photo from the show?")) return;
+    try {
+      await shows.deleteShowImage(managingShowId, index);
+      setMessage("Photo removed.");
+    } catch (err) {
+      setMessage(err.message || "Could not remove photo.");
     }
   };
 
@@ -153,6 +197,7 @@ export default function AdminDashboard() {
         setMessage("Portfolio reset to defaults.");
       } else {
         await shows.resetToDefaults();
+        setManagingShowId(null);
         setMessage("TV Work reset to defaults.");
       }
     } catch (err) {
@@ -210,8 +255,8 @@ export default function AdminDashboard() {
       </header>
 
       <p className="admin-note">
-        Manage Portfolio photos (including Celebrity) and TV Work show cards.
-        Changes save to MongoDB Atlas and appear for every visitor.
+        Manage Portfolio photos and TV shows. Each TV show can have multiple
+        photos — visitors click a show to browse its gallery.
       </p>
 
       {usingFallback && (
@@ -300,7 +345,7 @@ export default function AdminDashboard() {
       )}
 
       <section className="admin-panel">
-        <h2>Add · {sectionLabel}</h2>
+        <h2>{isPortfolio ? `Add · ${sectionLabel}` : "Add TV show"}</h2>
         <form className="admin-add-form" onSubmit={onAdd}>
           <label>
             Title
@@ -325,7 +370,7 @@ export default function AdminDashboard() {
             </label>
           )}
           <label>
-            Photo
+            {isPortfolio ? "Photo" : "Cover photo"}
             <input
               type="file"
               accept="image/*"
@@ -338,7 +383,7 @@ export default function AdminDashboard() {
             className="btn btn-solid"
             disabled={busy || usingFallback}
           >
-            {busy ? "Uploading…" : "Add"}
+            {busy ? "Uploading…" : isPortfolio ? "Add" : "Add show"}
           </button>
         </form>
         {message && <p className="admin-message">{message}</p>}
@@ -359,7 +404,14 @@ export default function AdminDashboard() {
         ) : (
           <div className="admin-grid">
             {listItems.map((item) => (
-              <article className="admin-card" key={item.id}>
+              <article
+                className={
+                  !isPortfolio && String(managingShowId) === String(item.id)
+                    ? "admin-card admin-card--active"
+                    : "admin-card"
+                }
+                key={item.id}
+              >
                 <img src={item.image} alt={item.title} />
                 <div className="admin-card-body">
                   {editingId === item.id ? (
@@ -390,12 +442,34 @@ export default function AdminDashboard() {
                       {!isPortfolio && item.subtitle ? (
                         <p className="admin-card-sub">{item.subtitle}</p>
                       ) : null}
+                      {!isPortfolio ? (
+                        <p className="admin-card-sub">
+                          {(item.images?.length || 1)} photo
+                          {(item.images?.length || 1) === 1 ? "" : "s"}
+                        </p>
+                      ) : null}
                     </>
                   )}
                   <div className="admin-card-actions">
                     <button type="button" onClick={() => startEdit(item)}>
                       Edit
                     </button>
+                    {!isPortfolio && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setManagingShowId(
+                            String(managingShowId) === String(item.id)
+                              ? null
+                              : item.id
+                          )
+                        }
+                      >
+                        {String(managingShowId) === String(item.id)
+                          ? "Close photos"
+                          : "Manage photos"}
+                      </button>
+                    )}
                     <button
                       type="button"
                       className="danger"
@@ -410,6 +484,54 @@ export default function AdminDashboard() {
           </div>
         )}
       </section>
+
+      {!isPortfolio && managingShow && (
+        <section className="admin-panel">
+          <div className="admin-panel-head">
+            <h2>
+              Photos · {managingShow.title} ({managingShow.images?.length || 0})
+            </h2>
+          </div>
+
+          <form className="admin-add-form" onSubmit={onAddShowPhoto}>
+            <label>
+              Add another photo
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setExtraFile(e.target.files?.[0] || null)}
+                required
+              />
+            </label>
+            <button
+              type="submit"
+              className="btn btn-solid"
+              disabled={extraBusy || usingFallback}
+            >
+              {extraBusy ? "Uploading…" : "Add photo"}
+            </button>
+          </form>
+
+          <div className="admin-show-photos">
+            {(managingShow.images || []).map((src, index) => (
+              <article className="admin-show-photo" key={`${managingShow.id}-${index}`}>
+                <img src={src} alt={`${managingShow.title} ${index + 1}`} />
+                <div className="admin-show-photo-actions">
+                  {index === 0 ? <span>Cover</span> : <span>Photo {index + 1}</span>}
+                  <button
+                    type="button"
+                    className="danger"
+                    disabled={(managingShow.images?.length || 0) <= 1}
+                    onClick={() => onDeleteShowPhoto(index)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

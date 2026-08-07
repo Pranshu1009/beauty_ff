@@ -4,18 +4,32 @@ import { api } from "../api";
 
 const ShowWorkContext = createContext(null);
 
+function withImages(item) {
+  const images =
+    Array.isArray(item.images) && item.images.length
+      ? item.images
+      : item.image
+        ? [item.image]
+        : [];
+  return {
+    ...item,
+    images,
+    image: images[0] || item.image || "",
+  };
+}
+
 export function ShowWorkProvider({ children }) {
-  const [items, setItems] = useState(SHOW_ITEMS);
+  const [items, setItems] = useState(SHOW_ITEMS.map(withImages));
   const [loading, setLoading] = useState(true);
   const [usingFallback, setUsingFallback] = useState(false);
 
   const refresh = useCallback(async () => {
     try {
       const data = await api("/shows");
-      setItems(data.items || []);
+      setItems((data.items || []).map(withImages));
       setUsingFallback(false);
     } catch {
-      setItems(SHOW_ITEMS);
+      setItems(SHOW_ITEMS.map(withImages));
       setUsingFallback(true);
     } finally {
       setLoading(false);
@@ -38,8 +52,8 @@ export function ShowWorkProvider({ children }) {
           auth: true,
           body: { title, subtitle, image },
         });
-        setItems((prev) => [data.item, ...prev]);
-        return data.item;
+        setItems((prev) => [withImages(data.item), ...prev]);
+        return withImages(data.item);
       },
       async updateItem(id, patch) {
         const data = await api(`/shows/${id}`, {
@@ -48,9 +62,36 @@ export function ShowWorkProvider({ children }) {
           body: patch,
         });
         setItems((prev) =>
-          prev.map((item) => (String(item.id) === String(id) ? data.item : item))
+          prev.map((item) =>
+            String(item.id) === String(id) ? withImages(data.item) : item
+          )
         );
-        return data.item;
+        return withImages(data.item);
+      },
+      async addShowImage(id, image) {
+        const data = await api(`/shows/${id}/images`, {
+          method: "POST",
+          auth: true,
+          body: { image },
+        });
+        setItems((prev) =>
+          prev.map((item) =>
+            String(item.id) === String(id) ? withImages(data.item) : item
+          )
+        );
+        return withImages(data.item);
+      },
+      async deleteShowImage(id, index) {
+        const data = await api(`/shows/${id}/images/${index}`, {
+          method: "DELETE",
+          auth: true,
+        });
+        setItems((prev) =>
+          prev.map((item) =>
+            String(item.id) === String(id) ? withImages(data.item) : item
+          )
+        );
+        return withImages(data.item);
       },
       async deleteItem(id) {
         await api(`/shows/${id}`, { method: "DELETE", auth: true });
@@ -58,7 +99,7 @@ export function ShowWorkProvider({ children }) {
       },
       async resetToDefaults() {
         const data = await api("/shows/reset", { method: "POST", auth: true });
-        setItems(data.items || []);
+        setItems((data.items || []).map(withImages));
       },
     }),
     [items, loading, usingFallback, refresh]

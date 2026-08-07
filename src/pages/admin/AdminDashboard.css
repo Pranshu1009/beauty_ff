@@ -290,6 +290,59 @@
   min-width: 0;
 }
 
+.admin-card--active {
+  border-color: rgba(232, 67, 147, 0.55);
+  box-shadow: 0 0 0 2px rgba(244, 114, 168, 0.2);
+}
+
+.admin-show-photos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.admin-show-photo {
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.admin-show-photo img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+}
+
+.admin-show-photo-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.65rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.admin-show-photo-actions button {
+  border: 1px solid rgba(176, 16, 88, 0.25);
+  background: var(--pink-50);
+  color: #b01058;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.admin-show-photo-actions button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .admin-card img {
   width: 100%;
   aspect-ratio: 3 / 4;
@@ -454,6 +507,10 @@
   .admin-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.7rem;
+  }
+
+  .admin-show-photos {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .admin-card-body {
