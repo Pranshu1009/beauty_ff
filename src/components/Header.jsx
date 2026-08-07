@@ -1,12 +1,14 @@
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { NAV_LINKS } from "../data";
+import { useAuth } from "../context/AuthContext";
 import "./Header.css";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { isOwner, logout } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -44,6 +46,20 @@ export default function Header() {
                 {link.label}
               </NavLink>
             ))}
+            {isOwner ? (
+              <>
+                <NavLink to="/admin" className="nav-link owner-link">
+                  Admin
+                </NavLink>
+                <button type="button" className="nav-link owner-link owner-btn" onClick={logout}>
+                  Logout
+                </button>
+              </>
+            ) : (
+              <NavLink to="/admin/login" className="nav-link owner-link">
+                Owner Login
+              </NavLink>
+            )}
           </nav>
 
           <div className="header-actions">

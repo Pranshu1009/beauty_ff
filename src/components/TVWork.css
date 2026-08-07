@@ -9,6 +9,13 @@
   margin-bottom: 2rem;
 }
 
+.show-grid .portfolio-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--muted);
+  margin: 1rem 0;
+}
+
 .show-card {
   border-radius: 14px;
   overflow: hidden;

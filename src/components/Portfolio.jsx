@@ -1,16 +1,17 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { PORTFOLIO_ITEMS, PORTFOLIO_TABS } from "../data";
+import { usePortfolio } from "../context/PortfolioContext";
 import "./Portfolio.css";
 
 export default function Portfolio({ limit = 5, showAllLink = true }) {
-  const [active, setActive] = useState("Celebrity");
+  const { items, categories } = usePortfolio();
+  const [active, setActive] = useState(categories[0] || "Celebrity");
 
-  const items = useMemo(() => {
-    const filtered = PORTFOLIO_ITEMS.filter((item) => item.category === active);
-    const rest = PORTFOLIO_ITEMS.filter((item) => item.category !== active);
-    return [...filtered, ...rest].slice(0, limit);
-  }, [active, limit]);
+  const visible = useMemo(() => {
+    const filtered = items.filter((item) => item.category === active);
+    if (limit == null) return filtered;
+    return filtered.slice(0, limit);
+  }, [items, active, limit]);
 
   return (
     <section className="section portfolio-section" id="portfolio">
@@ -22,7 +23,7 @@ export default function Portfolio({ limit = 5, showAllLink = true }) {
         </p>
 
         <div className="portfolio-tabs" role="tablist">
-          {PORTFOLIO_TABS.map((tab) => (
+          {categories.map((tab) => (
             <button
               key={tab}
               role="tab"
@@ -36,19 +37,23 @@ export default function Portfolio({ limit = 5, showAllLink = true }) {
         </div>
 
         <div className="portfolio-grid">
-          {items.map((item, index) => (
-            <article
-              className="portfolio-card fade-up"
-              style={{ animationDelay: `${index * 0.08}s` }}
-              key={item.id}
-            >
-              <img src={item.image} alt={item.title} />
-              <div className="portfolio-meta">
-                <span>{item.category}</span>
-                <h3>{item.title}</h3>
-              </div>
-            </article>
-          ))}
+          {visible.length === 0 ? (
+            <p className="portfolio-empty">No looks in this category yet.</p>
+          ) : (
+            visible.map((item, index) => (
+              <article
+                className="portfolio-card fade-up"
+                style={{ animationDelay: `${index * 0.08}s` }}
+                key={item.id}
+              >
+                <img src={item.image} alt={item.title} />
+                <div className="portfolio-meta">
+                  <span>{item.category}</span>
+                  <h3>{item.title}</h3>
+                </div>
+              </article>
+            ))
+          )}
         </div>
 
         {showAllLink && (

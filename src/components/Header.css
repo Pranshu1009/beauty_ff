@@ -115,6 +115,22 @@
   transform: scaleX(1);
 }
 
+.owner-link {
+  color: var(--pink-700);
+}
+
+button.owner-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+button.owner-btn::after {
+  display: none;
+}
+
 .header-actions {
   display: flex;
   align-items: center;

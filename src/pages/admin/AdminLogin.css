@@ -1,0 +1,113 @@
+.admin-login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+  background: var(--gradient-soft);
+}
+
+.admin-login-card {
+  width: min(420px, 100%);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  padding: 2rem 1.6rem 1.6rem;
+  box-shadow: var(--shadow-pink);
+}
+
+.admin-login-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pink-700);
+  margin-bottom: 0.45rem;
+}
+
+.admin-login-card h1 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.admin-login-sub {
+  margin: 0.55rem 0 1.4rem;
+  color: var(--ink-soft);
+  font-weight: 300;
+  font-size: 0.95rem;
+}
+
+.admin-login-form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.admin-login-form label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.admin-login-form input {
+  width: 100%;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 0.8rem 0.9rem;
+  background: var(--pink-50);
+  color: var(--ink);
+  font-size: 16px;
+  letter-spacing: 0;
+  text-transform: none;
+  outline: none;
+  box-sizing: border-box;
+  min-height: 44px;
+}
+
+.admin-login-form input:focus {
+  border-color: var(--pink-400);
+  box-shadow: 0 0 0 3px rgba(244, 114, 168, 0.2);
+}
+
+.admin-login-error {
+  color: #b01058;
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+.admin-login-btn {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.admin-back-link {
+  display: inline-block;
+  margin-top: 1.15rem;
+  font-size: 0.85rem;
+  color: var(--pink-700);
+}
+
+@media (max-width: 480px) {
+  .admin-login-page {
+    padding: 1.25rem 0.85rem;
+    align-items: flex-start;
+    padding-top: 2.5rem;
+  }
+
+  .admin-login-card {
+    padding: 1.5rem 1.15rem 1.25rem;
+    border-radius: 14px;
+  }
+
+  .admin-login-card h1 {
+    font-size: clamp(1.7rem, 8vw, 2rem);
+  }
+
+  .admin-login-btn {
+    min-height: 48px;
+  }
+}
