@@ -8,6 +8,12 @@
   gap: 1rem;
 }
 
+.services-grid--main {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 920px;
+  margin-inline: auto;
+}
+
 .service-card {
   background: rgba(255, 255, 255, 0.72);
   border: 1px solid var(--border-soft);
@@ -58,12 +64,20 @@
   .services-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .services-grid--main {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 640px) {
   .services-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.7rem;
+  }
+
+  .services-grid--main {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .service-card {
@@ -75,5 +89,11 @@
     font-size: 0.64rem;
     letter-spacing: 0.08em;
     max-width: 14ch;
+  }
+
+  .services-cta .btn {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
   }
 }

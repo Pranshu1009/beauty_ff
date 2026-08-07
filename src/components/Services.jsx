@@ -3,7 +3,9 @@ import Icon from "./Icon";
 import { SERVICES } from "../data";
 import "./Services.css";
 
-export default function Services() {
+export default function Services({ limit = null, showAllLink = false }) {
+  const items = limit == null ? SERVICES : SERVICES.slice(0, limit);
+
   return (
     <section className="section services-section" id="services">
       <div className="container">
@@ -13,8 +15,8 @@ export default function Services() {
           Specialized in creating flawless looks for every occasion.
         </p>
 
-        <div className="services-grid">
-          {SERVICES.map((service) => (
+        <div className={`services-grid${limit ? " services-grid--main" : ""}`}>
+          {items.map((service) => (
             <article className="service-card" key={service.title}>
               <Icon name={service.icon} />
               <h3>{service.title}</h3>
@@ -23,9 +25,15 @@ export default function Services() {
         </div>
 
         <div className="services-cta">
-          <Link to="/contact" className="btn btn-solid">
-            Book Your Look
-          </Link>
+          {showAllLink ? (
+            <Link to="/services" className="btn btn-outline">
+              All Services
+            </Link>
+          ) : (
+            <Link to="/contact" className="btn btn-solid">
+              Book Your Look
+            </Link>
+          )}
         </div>
       </div>
     </section>

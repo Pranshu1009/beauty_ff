@@ -13,7 +13,7 @@ export default function Home() {
       <Hero />
       <About compact />
       <Portfolio />
-      <Services />
+      <Services limit={4} showAllLink />
       <TVWork />
       <Academy />
       <Testimonials />
