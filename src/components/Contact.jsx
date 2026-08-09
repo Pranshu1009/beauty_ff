@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { api } from "../api";
 import { CONTACT, IMAGES } from "../data";
 import "./Contact.css";
 
@@ -10,6 +9,20 @@ const initial = {
   event: "",
   message: "",
 };
+
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+
+function buildWhatsAppText(form) {
+  return [
+    "New website inquiry",
+    `Name: ${form.name}`,
+    `Email: ${form.email}`,
+    `Phone: ${form.phone}`,
+    `Event: ${form.event}`,
+    "",
+    form.message,
+  ].join("\n");
+}
 
 export default function Contact() {
   const [form, setForm] = useState(initial);
@@ -27,13 +40,48 @@ export default function Contact() {
     setBusy(true);
     setError("");
     setSent(false);
+
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      setError(
+        "Contact form is not configured yet. Add VITE_WEB3FORMS_ACCESS_KEY."
+      );
+      setBusy(false);
+      return;
+    }
+
     try {
-      const data = await api("/contact", { method: "POST", body: form });
+      const res = await fetch(WEB3FORMS_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `New website inquiry from ${form.name}`,
+          from_name: form.name,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          event: form.event,
+          message: form.message,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || "Could not send your message.");
+      }
+
+      const waNumber = CONTACT.phoneTel.replace(/\D/g, "");
+      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(
+        buildWhatsAppText(form)
+      )}`;
+      window.open(waUrl, "_blank", "noopener,noreferrer");
+
       setSent(true);
       setForm(initial);
-      if (data?.results && !data.results.whatsapp) {
-        setError("");
-      }
     } catch (err) {
       setError(err.message || "Could not send your message. Please try again.");
     } finally {
@@ -145,7 +193,7 @@ export default function Contact() {
             </button>
             {sent && (
               <p className="success" role="status">
-                Thank you! Your message has been sent. We’ll get back to you soon.
+                Thank you! Check your email inbox, and tap Send in WhatsApp if it opened.
               </p>
             )}
             {error && (

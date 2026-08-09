@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js";
 import portfolioRoutes from "./routes/portfolio.js";
 import showRoutes from "./routes/shows.js";
-import contactRoutes from "./routes/contact.js";
 import { seedDefaults } from "./seed.js";
 
 const app = express();
@@ -21,7 +20,6 @@ app.get("/api/health", (_req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/shows", showRoutes);
-app.use("/api/contact", contactRoutes);
 
 async function start() {
   const uri = process.env.MONGODB_URI;
