@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { api } from "../api";
 import { CONTACT, IMAGES } from "../data";
 import "./Contact.css";
 
@@ -24,6 +25,18 @@ function buildWhatsAppText(form) {
   ].join("\n");
 }
 
+async function resolveAccessKey() {
+  const fromVite = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+  if (fromVite) return String(fromVite).trim();
+
+  try {
+    const data = await api("/config");
+    return String(data.web3formsAccessKey || "").trim();
+  } catch {
+    return "";
+  }
+}
+
 export default function Contact() {
   const [form, setForm] = useState(initial);
   const [sent, setSent] = useState(false);
@@ -41,16 +54,14 @@ export default function Contact() {
     setError("");
     setSent(false);
 
-    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-    if (!accessKey) {
-      setError(
-        "Contact form is not configured yet. Add VITE_WEB3FORMS_ACCESS_KEY."
-      );
-      setBusy(false);
-      return;
-    }
-
     try {
+      const accessKey = await resolveAccessKey();
+      if (!accessKey) {
+        throw new Error(
+          "Contact form is not configured yet. Add VITE_WEB3FORMS_ACCESS_KEY on Render (or Vercel) and redeploy."
+        );
+      }
+
       const res = await fetch(WEB3FORMS_URL, {
         method: "POST",
         headers: {

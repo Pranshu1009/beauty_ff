@@ -17,6 +17,16 @@ app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
 });
 
+// Public site config (Web3Forms access keys are safe to expose client-side)
+app.get("/api/config", (_req, res) => {
+  res.json({
+    web3formsAccessKey:
+      process.env.WEB3FORMS_ACCESS_KEY ||
+      process.env.VITE_WEB3FORMS_ACCESS_KEY ||
+      "",
+  });
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/shows", showRoutes);
