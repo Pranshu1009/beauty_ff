@@ -31,7 +31,7 @@ export default function Hero() {
 
         <div className="hero-photo">
           <img
-            src="/images/hero-portrait.jpg?v=h1000"
+            src="/images/hero-portrait.jpg?v=peach1"
             alt="Roshani Chaurasiya holding a makeup brush"
           />
         </div>
