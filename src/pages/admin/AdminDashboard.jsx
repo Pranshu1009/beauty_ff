@@ -3,17 +3,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { fileToDataUrl, usePortfolio } from "../../context/PortfolioContext";
 import { useShowWork } from "../../context/ShowWorkContext";
+import { useTestimonials } from "../../context/TestimonialsContext";
+import AdminTestimonials from "./AdminTestimonials";
 import "./AdminDashboard.css";
 
 const AREAS = [
   { id: "portfolio", label: "Portfolio" },
   { id: "tv", label: "TV Work" },
+  { id: "testimonials", label: "Testimonials" },
 ];
 
 export default function AdminDashboard() {
   const { logout, changePassword, username } = useAuth();
   const portfolio = usePortfolio();
   const shows = useShowWork();
+  const testimonials = useTestimonials();
   const navigate = useNavigate();
 
   const [area, setArea] = useState("portfolio");
@@ -40,7 +44,13 @@ export default function AdminDashboard() {
   const [passwordBusy, setPasswordBusy] = useState(false);
 
   const isPortfolio = area === "portfolio";
-  const usingFallback = isPortfolio ? portfolio.usingFallback : shows.usingFallback;
+  const isTv = area === "tv";
+  const isTestimonials = area === "testimonials";
+  const usingFallback = isPortfolio
+    ? portfolio.usingFallback
+    : isTv
+      ? shows.usingFallback
+      : testimonials.usingFallback;
 
   useEffect(() => {
     if (
@@ -255,8 +265,7 @@ export default function AdminDashboard() {
       </header>
 
       <p className="admin-note">
-        Manage Portfolio photos and TV shows. Each TV show can have multiple
-        photos — visitors click a show to browse its gallery.
+        Manage Portfolio photos, TV show galleries, and client testimonials.
       </p>
 
       {usingFallback && (
@@ -318,12 +327,20 @@ export default function AdminDashboard() {
           >
             {tab.label}
             <span>
-              {tab.id === "portfolio" ? portfolio.items.length : shows.items.length}
+              {tab.id === "portfolio"
+                ? portfolio.items.length
+                : tab.id === "tv"
+                  ? shows.items.length
+                  : testimonials.items.length}
             </span>
           </button>
         ))}
       </div>
 
+      {isTestimonials ? (
+        <AdminTestimonials />
+      ) : (
+        <>
       {isPortfolio && (
         <div className="admin-tabs" role="tablist">
           {portfolio.categories.map((tab) => (
@@ -531,6 +548,8 @@ export default function AdminDashboard() {
             ))}
           </div>
         </section>
+      )}
+        </>
       )}
     </div>
   );

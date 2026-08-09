@@ -108,6 +108,38 @@
   margin-bottom: 1rem;
 }
 
+.admin-testimonial-form {
+  grid-template-columns: 1fr 1fr auto;
+}
+
+.admin-testimonial-form .admin-span-2 {
+  grid-column: 1 / -1;
+}
+
+.admin-testimonial-form textarea {
+  width: 100%;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 0.7rem 0.85rem;
+  background: var(--pink-50);
+  color: var(--ink);
+  font-size: 16px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.admin-edit-col textarea {
+  width: 100%;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 0.7rem 0.85rem;
+  background: var(--pink-50);
+  color: var(--ink);
+  font-size: 16px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
 .admin-area-tab {
   border: 1px solid var(--border-soft);
   background: rgba(255, 255, 255, 0.85);
@@ -404,8 +436,13 @@
 
 @media (max-width: 1000px) {
   .admin-add-form,
-  .admin-password-form {
+  .admin-password-form,
+  .admin-testimonial-form {
     grid-template-columns: 1fr;
+  }
+
+  .admin-testimonial-form .admin-span-2 {
+    grid-column: auto;
   }
 
   .admin-add-form .btn,

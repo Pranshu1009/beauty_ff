@@ -2,7 +2,14 @@ import bcrypt from "bcryptjs";
 import User from "./models/User.js";
 import PortfolioItem from "./models/PortfolioItem.js";
 import ShowItem from "./models/ShowItem.js";
-import { DEFAULT_PORTFOLIO, DEFAULT_SHOWS } from "./seedData.js";
+import Testimonial from "./models/Testimonial.js";
+import SectionContent from "./models/SectionContent.js";
+import {
+  DEFAULT_PORTFOLIO,
+  DEFAULT_SHOWS,
+  DEFAULT_TESTIMONIALS,
+  DEFAULT_TESTIMONIAL_SECTION,
+} from "./seedData.js";
 
 export async function seedDefaults() {
   const username = process.env.OWNER_USERNAME || "roshani";
@@ -58,5 +65,20 @@ export async function seedDefaults() {
   if (showCount === 0) {
     await ShowItem.insertMany(DEFAULT_SHOWS);
     console.log("Seeded default TV work items");
+  }
+
+  const testimonialCount = await Testimonial.countDocuments();
+  if (testimonialCount === 0) {
+    await Testimonial.insertMany(DEFAULT_TESTIMONIALS);
+    console.log("Seeded default testimonials");
+  }
+
+  const section = await SectionContent.findOne({ key: "testimonials" });
+  if (!section) {
+    await SectionContent.create({
+      key: "testimonials",
+      ...DEFAULT_TESTIMONIAL_SECTION,
+    });
+    console.log("Seeded testimonials section content");
   }
 }

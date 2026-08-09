@@ -68,3 +68,33 @@ export const DEFAULT_SHOWS = [
     images: ["/images/tv-5.jpg?v=shows1"],
   },
 ];
+
+export const DEFAULT_TESTIMONIAL_SECTION = {
+  title: "Kind Words",
+  subtitle:
+    "Love notes from brides, celebrities, and creatives who trusted Roshani with their look.",
+};
+
+export const DEFAULT_TESTIMONIALS = [
+  {
+    name: "Manasi Ghosh",
+    title: "Indian Idol Fame",
+    quote:
+      "Roshani made me feel like the most beautiful version of myself. Soft, timeless, and absolutely flawless under every camera light.",
+    image: "/images/avatar-1.jpg",
+  },
+  {
+    name: "Priya Kapoor",
+    title: "Actress",
+    quote:
+      "From set to red carpet, she understands camera light like no one else. My go-to artist for every appearance.",
+    image: "/images/avatar-2.jpg",
+  },
+  {
+    name: "Sana Rizvi",
+    title: "Fashion Model",
+    quote:
+      "Editorial precision with a soft glam touch. Every shoot with Roshani feels elevated and effortless.",
+    image: "/images/avatar-3.jpg",
+  },
+];
