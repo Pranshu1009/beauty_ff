@@ -1,5 +1,5 @@
 .services-section {
-  background: linear-gradient(180deg, #fff0f5 0%, #ffe4ec 100%);
+  background: linear-gradient(180deg, var(--dusty-rose-soft) 0%, var(--ivory) 100%);
 }
 
 .services-grid {
@@ -31,13 +31,13 @@
 .service-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-pink);
-  border-color: rgba(232, 67, 147, 0.4);
+  border-color: rgba(196, 164, 106, 0.55);
 }
 
 .service-card .icon {
   width: 36px;
   height: 36px;
-  color: var(--pink-500);
+  color: var(--champagne);
 }
 
 .service-card .icon svg {
@@ -50,7 +50,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 600;
-  color: var(--pink-800);
+  color: var(--chocolate);
   max-width: 12ch;
 }
 

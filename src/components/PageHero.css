@@ -13,8 +13,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255, 182, 208, 0.35), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.12), transparent 35%);
+    radial-gradient(circle at 20% 20%, rgba(196, 164, 106, 0.22), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(247, 241, 232, 0.1), transparent 35%);
 }
 
 .page-hero-content {
@@ -24,7 +24,7 @@
 }
 
 .page-hero .eyebrow {
-  color: #ffd0e0;
+  color: var(--champagne-light);
   margin-bottom: 0.75rem;
 }
 

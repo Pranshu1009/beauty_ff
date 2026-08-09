@@ -47,9 +47,9 @@
 }
 
 .admin-warning {
-  background: #fff1f5;
-  border: 1px solid rgba(176, 16, 88, 0.25);
-  color: #8c0d47;
+  background: #f3ebe2;
+  border: 1px solid rgba(74, 44, 26, 0.2);
+  color: var(--chocolate-deep);
   padding: 0.85rem 1rem;
   border-radius: 10px;
   margin: 0 0 1.25rem;
@@ -291,8 +291,8 @@
 }
 
 .admin-card--active {
-  border-color: rgba(232, 67, 147, 0.55);
-  box-shadow: 0 0 0 2px rgba(244, 114, 168, 0.2);
+  border-color: rgba(196, 164, 106, 0.65);
+  box-shadow: 0 0 0 2px rgba(196, 164, 106, 0.2);
 }
 
 .admin-show-photos {
@@ -327,9 +327,9 @@
 }
 
 .admin-show-photo-actions button {
-  border: 1px solid rgba(176, 16, 88, 0.25);
+  border: 1px solid rgba(74, 44, 26, 0.25);
   background: var(--pink-50);
-  color: #b01058;
+  color: var(--chocolate);
   padding: 0.35rem 0.55rem;
   font-size: 0.65rem;
   letter-spacing: 0.06em;
@@ -398,7 +398,7 @@
 }
 
 .admin-card-actions button.danger {
-  color: #b01058;
+  color: var(--chocolate);
   border-color: rgba(176, 16, 88, 0.25);
 }
 

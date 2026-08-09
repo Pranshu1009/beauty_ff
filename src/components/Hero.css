@@ -4,7 +4,7 @@
   flex-direction: column;
   width: 100%;
   margin: 0;
-  background: #f6c0ae;
+  background: var(--dusty-rose-soft);
 }
 
 .hero-stage {
@@ -14,7 +14,7 @@
   height: 1000px;
   max-height: 1000px;
   align-items: stretch;
-  background: #f6c0ae;
+  background: linear-gradient(135deg, var(--ivory) 0%, var(--dusty-rose-soft) 55%, var(--ivory-deep) 100%);
   overflow: hidden;
 }
 
@@ -42,7 +42,7 @@
   letter-spacing: 0.04em;
   line-height: 0.86;
   text-transform: uppercase;
-  color: #8a4a4a;
+  color: var(--chocolate);
   margin: 0;
   width: max-content;
 }
@@ -65,7 +65,7 @@
   letter-spacing: 0;
   font-weight: 400;
   font-size: 0.94em;
-  color: #8a4a4a;
+  color: var(--champagne);
 }
 
 .hero-role {
@@ -75,7 +75,7 @@
   letter-spacing: 0.28em;
   text-transform: uppercase;
   font-weight: 500;
-  color: #8a4a4a;
+  color: var(--chocolate);
 }
 
 .hero-cats {
@@ -83,7 +83,7 @@
   font-weight: 400;
   font-size: clamp(1.15rem, 1.7vw, 1.4rem);
   letter-spacing: 0.05em;
-  color: #9a6464;
+  color: var(--muted);
 }
 
 .hero-book {
@@ -92,9 +92,9 @@
   justify-content: center;
   margin-top: 2rem;
   padding: 1.05rem 2.1rem;
-  border: 1.5px solid #8a4a4a;
-  background: rgba(255, 245, 240, 0.55);
-  color: #8a4a4a;
+  border: 1.5px solid var(--chocolate);
+  background: var(--chocolate);
+  color: var(--ivory);
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -103,8 +103,8 @@
 }
 
 .hero-book:hover {
-  background: #8a4a4a;
-  color: #fff5f0;
+  background: var(--chocolate-deep);
+  color: var(--ivory);
   transform: translateY(-2px);
 }
 
@@ -113,7 +113,7 @@
   align-items: center;
   gap: 0.75rem;
   margin-top: 1.25rem;
-  color: #8a4a4a;
+  color: var(--chocolate);
   font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0.16em;
@@ -128,7 +128,7 @@
 .hero-arrow {
   width: 36px;
   height: 36px;
-  border: 1.5px solid #8a4a4a;
+  border: 1.5px solid var(--champagne);
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -136,12 +136,13 @@
   font-size: 1.35rem;
   line-height: 1;
   padding-bottom: 2px;
+  color: var(--champagne);
 }
 
 .hero-photo {
   position: relative;
   overflow: hidden;
-  background: #f0b59f;
+  background: var(--dusty-rose);
   height: 100%;
 }
 
@@ -151,7 +152,7 @@
   inset: 0 auto 0 0;
   width: 14%;
   z-index: 1;
-  background: linear-gradient(90deg, #f6c0ae, transparent);
+  background: linear-gradient(90deg, var(--dusty-rose-soft), transparent);
   pointer-events: none;
 }
 
@@ -164,8 +165,8 @@
 }
 
 .hero .stats-bar.hero {
-  background: linear-gradient(90deg, #8a4a4a, #a45d5d);
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(90deg, var(--chocolate-deep), var(--chocolate));
+  border-top: 1px solid rgba(247, 241, 232, 0.12);
 }
 
 .hero .stats-bar.hero .stats-grid {
@@ -204,7 +205,7 @@
     inset: auto 0 0 0;
     width: 100%;
     height: 28%;
-    background: linear-gradient(180deg, transparent, #f6c0ae);
+    background: linear-gradient(180deg, transparent, var(--dusty-rose-soft));
   }
 
   .hero-copy {

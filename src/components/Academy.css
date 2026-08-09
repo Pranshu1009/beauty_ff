@@ -1,7 +1,7 @@
 .academy-section {
   padding-top: clamp(2rem, 5vw, 3.5rem);
   padding-bottom: clamp(2rem, 5vw, 3.5rem);
-  background: var(--pink-50);
+  background: var(--ivory);
 }
 
 .academy-split {
@@ -18,20 +18,20 @@
   background-size: cover;
   background-position: center;
   min-height: 360px;
-  background-color: var(--pink-100);
+  background-color: var(--dusty-rose-soft);
 }
 
 .academy-copy {
-  background: linear-gradient(160deg, #ffe4ec 0%, #ffd0e0 45%, #f9a8c4 100%);
+  background: linear-gradient(160deg, var(--dusty-rose-soft) 0%, var(--ivory-deep) 55%, #ddd0c4 100%);
   padding: clamp(2rem, 5vw, 3.5rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: var(--pink-900);
+  color: var(--chocolate-deep);
 }
 
 .academy-copy .eyebrow {
-  color: var(--pink-700);
+  color: var(--champagne);
 }
 
 .academy-copy h2 {
@@ -68,7 +68,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--pink-600);
+  background: var(--champagne);
 }
 
 @media (max-width: 860px) {

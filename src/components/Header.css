@@ -1,8 +1,8 @@
 .announcement {
-  background: linear-gradient(90deg, #fce4ec, #ffd0e0, #fce4ec);
+  background: linear-gradient(90deg, var(--dusty-rose-soft), var(--ivory-deep), var(--dusty-rose-soft));
   background-size: 200% 100%;
   animation: shimmer 8s linear infinite;
-  color: var(--pink-800);
+  color: var(--chocolate);
   text-align: center;
   font-size: 0.72rem;
   font-weight: 500;
@@ -18,16 +18,16 @@
   position: sticky;
   top: var(--announcement-h);
   z-index: 1000;
-  background: rgba(255, 247, 250, 0.88);
+  background: rgba(247, 241, 232, 0.92);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid transparent;
   transition: box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
 .site-header.scrolled {
-  background: rgba(255, 247, 250, 0.96);
+  background: rgba(247, 241, 232, 0.98);
   border-bottom-color: var(--border-soft);
-  box-shadow: 0 8px 30px rgba(176, 16, 88, 0.08);
+  box-shadow: 0 8px 30px rgba(58, 33, 20, 0.08);
 }
 
 .header-inner {
@@ -54,7 +54,7 @@
   font-size: 1.35rem;
   font-weight: 600;
   letter-spacing: 0.06em;
-  color: var(--ink);
+  color: var(--chocolate);
 }
 
 .brand-name em {
@@ -62,7 +62,7 @@
   font-style: normal;
   font-size: 1.55rem;
   letter-spacing: 0;
-  color: var(--pink-700);
+  color: var(--champagne);
   margin-left: 0.2rem;
 }
 
@@ -99,7 +99,7 @@
   bottom: 0;
   width: 100%;
   height: 1.5px;
-  background: var(--gradient-accent);
+  background: var(--champagne);
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.25s ease;
@@ -107,7 +107,7 @@
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--pink-600);
+  color: var(--chocolate);
 }
 
 .nav-link:hover::after,

@@ -24,7 +24,7 @@
   cursor: pointer;
   border-radius: 14px;
   overflow: hidden;
-  background: #1a0a12;
+  background: #2a180f;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   font: inherit;
   color: inherit;
@@ -80,7 +80,7 @@
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ffd0e0;
+  color: var(--champagne-light);
   font-weight: 400;
 }
 
@@ -108,7 +108,7 @@
   width: min(920px, 100%);
   max-height: calc(100vh - 2rem);
   overflow: auto;
-  background: #1a0a12;
+  background: #2a180f;
   border-radius: 16px;
   padding: 1rem 1rem 1.15rem;
   color: #fff;
@@ -134,7 +134,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #ffd0e0;
+  color: var(--champagne-light);
 }
 
 .show-lightbox-close {
@@ -151,7 +151,7 @@
 
 .show-lightbox-stage {
   position: relative;
-  background: #0d0508;
+  background: #1a100a;
   border-radius: 12px;
   overflow: hidden;
   min-height: 240px;
@@ -194,7 +194,7 @@
   margin: 0.7rem 0 0.55rem;
   font-size: 0.8rem;
   letter-spacing: 0.08em;
-  color: #ffd0e0;
+  color: var(--champagne-light);
 }
 
 .show-thumbs {
@@ -213,11 +213,11 @@
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  background: #2a1018;
+  background: #3a2114;
 }
 
 .show-thumb.active {
-  border-color: var(--pink-400, #f472b6);
+  border-color: var(--champagne);
 }
 
 .show-thumb img {

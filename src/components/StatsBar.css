@@ -5,14 +5,14 @@
 
 .stats-bar.hero {
   margin-top: -1px;
-  background: linear-gradient(180deg, rgba(107, 10, 55, 0.92), rgba(140, 13, 71, 0.96));
-  border-top: 1px solid rgba(255, 208, 224, 0.2);
-  color: var(--white);
+  background: linear-gradient(180deg, rgba(42, 24, 15, 0.94), rgba(58, 33, 20, 0.96));
+  border-top: 1px solid rgba(196, 164, 106, 0.25);
+  color: var(--ivory);
 }
 
 .stats-bar.section {
   background: var(--gradient-deep);
-  color: var(--white);
+  color: var(--ivory);
   border-radius: 18px;
   overflow: hidden;
   box-shadow: var(--shadow-pink);
@@ -45,7 +45,7 @@
 .stat-icon span {
   width: 18px;
   height: 1.5px;
-  background: linear-gradient(90deg, transparent, #ffd0e0, transparent);
+  background: linear-gradient(90deg, transparent, var(--champagne-light), transparent);
   position: relative;
 }
 
@@ -55,7 +55,7 @@
   position: absolute;
   width: 5px;
   height: 5px;
-  border: 1px solid #ffd0e0;
+  border: 1px solid var(--champagne-light);
   border-radius: 50%;
   top: 50%;
   transform: translateY(-50%);
@@ -73,7 +73,7 @@
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 600;
-  color: #ffe4ec;
+  color: var(--champagne-light);
   line-height: 1;
   margin-bottom: 0.35rem;
 }

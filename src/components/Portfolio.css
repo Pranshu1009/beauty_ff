@@ -34,10 +34,10 @@
 
 .tab:hover,
 .tab.active {
-  background: var(--gradient-accent);
+  background: var(--chocolate);
   border-color: transparent;
-  color: var(--white);
-  box-shadow: 0 8px 20px rgba(212, 20, 106, 0.25);
+  color: var(--ivory);
+  box-shadow: 0 8px 20px rgba(58, 33, 20, 0.2);
 }
 
 .portfolio-grid {
@@ -77,8 +77,8 @@
   position: absolute;
   inset: auto 0 0 0;
   padding: 1.4rem 0.9rem 0.9rem;
-  background: linear-gradient(180deg, transparent, rgba(107, 10, 55, 0.88));
-  color: var(--white);
+  background: linear-gradient(180deg, transparent, rgba(42, 24, 15, 0.9));
+  color: var(--ivory);
   transform: translateY(12px);
   opacity: 0.95;
   transition: transform 0.3s ease;
@@ -92,7 +92,7 @@
   font-size: 0.62rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #ffd0e0;
+  color: var(--champagne-light);
 }
 
 .portfolio-meta h3 {

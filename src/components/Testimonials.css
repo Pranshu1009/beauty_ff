@@ -1,5 +1,5 @@
 .testimonials-section {
-  background: linear-gradient(180deg, #fff7fa, #ffe8f0);
+  background: linear-gradient(180deg, var(--ivory), var(--dusty-rose-soft));
 }
 
 .testimonial-grid {
@@ -14,7 +14,7 @@
   border-radius: 18px;
   padding: 2rem 1.5rem 1.75rem;
   text-align: center;
-  box-shadow: 0 12px 30px rgba(176, 16, 88, 0.06);
+  box-shadow: 0 12px 30px rgba(58, 33, 20, 0.06);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -29,8 +29,8 @@
   border-radius: 50%;
   object-fit: cover;
   margin: 0 auto 1.1rem;
-  border: 2px solid var(--pink-300);
-  box-shadow: 0 0 0 4px rgba(244, 114, 168, 0.15);
+  border: 2px solid var(--champagne);
+  box-shadow: 0 0 0 4px rgba(196, 164, 106, 0.18);
 }
 
 .quote {
@@ -43,7 +43,7 @@
 }
 
 .stars {
-  color: var(--pink-500);
+  color: var(--champagne);
   letter-spacing: 0.15em;
   margin: 1rem 0 0.7rem;
   font-size: 0.95rem;
@@ -53,7 +53,7 @@
   font-size: 0.95rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--pink-800);
+  color: var(--chocolate);
 }
 
 .testimonial-card span {
@@ -76,13 +76,13 @@
   height: 9px;
   border-radius: 50%;
   border: none;
-  background: var(--pink-200);
+  background: var(--dusty-rose);
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .dot.active {
-  background: var(--pink-500);
+  background: var(--champagne);
   transform: scale(1.2);
 }
 
