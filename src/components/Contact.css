@@ -115,6 +115,13 @@
   margin-top: 0.35rem;
 }
 
+.form-error {
+  margin: 0.85rem 0 0;
+  color: #b01058;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
 .success {
   margin-top: 0.85rem;
   color: var(--pink-600);

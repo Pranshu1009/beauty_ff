@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { api } from "../api";
 import { CONTACT, IMAGES } from "../data";
 import "./Contact.css";
 
@@ -13,16 +14,28 @@ const initial = {
 export default function Contact() {
   const [form, setForm] = useState(initial);
   const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
 
   const onChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setSent(true);
-    setForm(initial);
+    setBusy(true);
+    setError("");
+    setSent(false);
+    try {
+      await api("/contact", { method: "POST", body: form });
+      setSent(true);
+      setForm(initial);
+    } catch (err) {
+      setError(err.message || "Could not send your message. Please try again.");
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -124,12 +137,17 @@ export default function Contact() {
                 placeholder="Tell us about your date, look, and location"
               />
             </label>
-            <button type="submit" className="btn btn-solid">
-              Send Message
+            <button type="submit" className="btn btn-solid" disabled={busy}>
+              {busy ? "Sending…" : "Send Message"}
             </button>
             {sent && (
               <p className="success" role="status">
-                Thank you! Your message has been received.
+                Thank you! Your message has been sent. We’ll get back to you soon.
+              </p>
+            )}
+            {error && (
+              <p className="form-error" role="alert">
+                {error}
               </p>
             )}
           </form>
