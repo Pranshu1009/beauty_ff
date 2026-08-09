@@ -14,7 +14,6 @@ const initial = {
 export default function Contact() {
   const [form, setForm] = useState(initial);
   const [sent, setSent] = useState(false);
-  const [statusMsg, setStatusMsg] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
@@ -28,12 +27,10 @@ export default function Contact() {
     setBusy(true);
     setError("");
     setSent(false);
-    setStatusMsg("");
 
     try {
-      const data = await api("/contact", { method: "POST", body: form });
+      await api("/contact", { method: "POST", body: form });
       setSent(true);
-      setStatusMsg(data.message || "Message sent.");
       setForm(initial);
     } catch (err) {
       setError(err.message || "Could not send your message. Please try again.");
@@ -146,7 +143,7 @@ export default function Contact() {
             </button>
             {sent && (
               <p className="success" role="status">
-                {statusMsg || "Thank you! Your message has been sent."}
+                Thank you! Your message has been sent to our email.
               </p>
             )}
             {error && (
