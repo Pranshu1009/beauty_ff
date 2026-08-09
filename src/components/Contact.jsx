@@ -11,35 +11,10 @@ const initial = {
   message: "",
 };
 
-const WEB3FORMS_URL = "https://api.web3forms.com/submit";
-
-function buildWhatsAppText(form) {
-  return [
-    "New website inquiry",
-    `Name: ${form.name}`,
-    `Email: ${form.email}`,
-    `Phone: ${form.phone}`,
-    `Event: ${form.event}`,
-    "",
-    form.message,
-  ].join("\n");
-}
-
-async function resolveAccessKey() {
-  const fromVite = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-  if (fromVite) return String(fromVite).trim();
-
-  try {
-    const data = await api("/config");
-    return String(data.web3formsAccessKey || "").trim();
-  } catch {
-    return "";
-  }
-}
-
 export default function Contact() {
   const [form, setForm] = useState(initial);
   const [sent, setSent] = useState(false);
+  const [statusMsg, setStatusMsg] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
@@ -53,45 +28,12 @@ export default function Contact() {
     setBusy(true);
     setError("");
     setSent(false);
+    setStatusMsg("");
 
     try {
-      const accessKey = await resolveAccessKey();
-      if (!accessKey) {
-        throw new Error(
-          "Contact form is not configured yet. Add VITE_WEB3FORMS_ACCESS_KEY on Render (or Vercel) and redeploy."
-        );
-      }
-
-      const res = await fetch(WEB3FORMS_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: accessKey,
-          subject: `New website inquiry from ${form.name}`,
-          from_name: form.name,
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          event: form.event,
-          message: form.message,
-        }),
-      });
-
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.message || "Could not send your message.");
-      }
-
-      const waNumber = CONTACT.phoneTel.replace(/\D/g, "");
-      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(
-        buildWhatsAppText(form)
-      )}`;
-      window.open(waUrl, "_blank", "noopener,noreferrer");
-
+      const data = await api("/contact", { method: "POST", body: form });
       setSent(true);
+      setStatusMsg(data.message || "Message sent.");
       setForm(initial);
     } catch (err) {
       setError(err.message || "Could not send your message. Please try again.");
@@ -204,7 +146,7 @@ export default function Contact() {
             </button>
             {sent && (
               <p className="success" role="status">
-                Thank you! Check your email inbox, and tap Send in WhatsApp if it opened.
+                {statusMsg || "Thank you! Your message has been sent."}
               </p>
             )}
             {error && (

@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js";
 import portfolioRoutes from "./routes/portfolio.js";
 import showRoutes from "./routes/shows.js";
+import contactRoutes from "./routes/contact.js";
 import { seedDefaults } from "./seed.js";
 
 const app = express();
@@ -17,19 +18,10 @@ app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
 });
 
-// Public site config (Web3Forms access keys are safe to expose client-side)
-app.get("/api/config", (_req, res) => {
-  res.json({
-    web3formsAccessKey:
-      process.env.WEB3FORMS_ACCESS_KEY ||
-      process.env.VITE_WEB3FORMS_ACCESS_KEY ||
-      "",
-  });
-});
-
 app.use("/api/auth", authRoutes);
 app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/shows", showRoutes);
+app.use("/api/contact", contactRoutes);
 
 async function start() {
   const uri = process.env.MONGODB_URI;
