@@ -28,9 +28,12 @@ export default function Contact() {
     setError("");
     setSent(false);
     try {
-      await api("/contact", { method: "POST", body: form });
+      const data = await api("/contact", { method: "POST", body: form });
       setSent(true);
       setForm(initial);
+      if (data?.results && !data.results.whatsapp) {
+        setError("");
+      }
     } catch (err) {
       setError(err.message || "Could not send your message. Please try again.");
     } finally {

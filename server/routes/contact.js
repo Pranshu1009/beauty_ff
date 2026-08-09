@@ -17,58 +17,101 @@ function buildMessage({ name, email, phone, event, message }) {
   ].join("\n");
 }
 
-async function sendEmailNotification(payload) {
-  const to = process.env.CONTACT_TO_EMAIL || "tiwariprabhakar1008@gmail.com";
-  const user = process.env.SMTP_USER || process.env.GMAIL_USER;
-  const pass = process.env.SMTP_PASS || process.env.GMAIL_APP_PASSWORD;
-
-  if (user && pass) {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: { user, pass },
-    });
-
-    await transporter.sendMail({
-      from: `"Roshani Website" <${user}>`,
-      to,
-      replyTo: payload.email,
-      subject: `New website inquiry from ${payload.name}`,
-      text: buildMessage(payload),
-    });
-    return "smtp";
+async function fetchWithTimeout(url, options = {}, ms = 15000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
   }
+}
 
-  // Fallback: FormSubmit (confirm the inbox once via their activation email)
-  const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(to)}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
+async function sendViaFormSubmit(payload, to) {
+  const res = await fetchWithTimeout(
+    `https://formsubmit.co/ajax/${encodeURIComponent(to)}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        name: payload.name,
+        email: payload.email,
+        phone: payload.phone,
+        event: payload.event,
+        message: payload.message,
+        _subject: `New website inquiry from ${payload.name}`,
+        _template: "table",
+        _captcha: "false",
+      }),
     },
-    body: JSON.stringify({
-      name: payload.name,
-      email: payload.email,
-      phone: payload.phone,
-      event: payload.event,
-      message: payload.message,
-      _subject: `New website inquiry from ${payload.name}`,
-      _template: "table",
-      _captcha: "false",
-    }),
-  });
+    20000
+  );
 
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    throw new Error(data.message || "Could not send email.");
+    throw new Error(data.message || "FormSubmit email failed.");
   }
   return "formsubmit";
+}
+
+async function sendViaSmtp(payload, to) {
+  const user = (process.env.SMTP_USER || process.env.GMAIL_USER || "").trim();
+  const pass = (
+    process.env.SMTP_PASS ||
+    process.env.GMAIL_APP_PASSWORD ||
+    ""
+  ).replace(/\s+/g, "");
+
+  if (!user || !pass) {
+    throw new Error("SMTP not configured");
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 10000,
+    auth: { user, pass },
+  });
+
+  await transporter.sendMail({
+    from: `"Roshani Website" <${user}>`,
+    to,
+    replyTo: payload.email,
+    subject: `New website inquiry from ${payload.name}`,
+    text: buildMessage(payload),
+  });
+  return "smtp";
+}
+
+async function sendEmailNotification(payload) {
+  const to = (
+    process.env.CONTACT_TO_EMAIL || "tiwariprabhakar1008@gmail.com"
+  ).trim();
+
+  // Prefer HTTPS FormSubmit on hosts that block/slow SMTP (e.g. Render free).
+  try {
+    return await sendViaFormSubmit(payload, to);
+  } catch (formErr) {
+    console.error("FormSubmit failed, trying SMTP:", formErr.message);
+    return sendViaSmtp(payload, to);
+  }
 }
 
 async function sendWhatsAppNotification(payload) {
   const phone = String(
     process.env.WHATSAPP_PHONE || "919823124595"
   ).replace(/\D/g, "");
-  const apiKey = process.env.CALLMEBOT_API_KEY || process.env.WHATSAPP_API_KEY;
+  const apiKey = (
+    process.env.CALLMEBOT_API_KEY ||
+    process.env.WHATSAPP_API_KEY ||
+    ""
+  ).trim();
 
   if (!apiKey) {
     throw new Error(
@@ -81,7 +124,7 @@ async function sendWhatsAppNotification(payload) {
     text
   )}&apikey=${encodeURIComponent(apiKey)}`;
 
-  const res = await fetch(url);
+  const res = await fetchWithTimeout(url, {}, 20000);
   const body = await res.text();
   if (!res.ok || /error|invalid|denied/i.test(body)) {
     throw new Error(body || "Could not send WhatsApp message.");
@@ -130,7 +173,9 @@ router.post("/", async (req, res) => {
 
     res.json({
       ok: true,
-      message: "Message sent successfully.",
+      message: results.whatsapp
+        ? "Message sent to email and WhatsApp."
+        : "Message sent to email. WhatsApp is not configured yet.",
       results,
     });
   } catch (err) {
