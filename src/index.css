@@ -39,6 +39,7 @@
     #6b4a2e 100%
   );
   --gradient-deep: linear-gradient(160deg, #2a180f 0%, #3a2114 48%, #4a2c1a 100%);
+  --gradient-deep-soft: linear-gradient(160deg, #6b4634 0%, #7a5340 48%, #8b634c 100%);
   --gradient-soft: linear-gradient(180deg, #f7f1e8 0%, #efe6d8 55%, #e8d6d0 100%);
   --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(247, 241, 232, 0.9));
   --gradient-accent: linear-gradient(90deg, #3a2114, #4a2c1a 55%, #6b4a2e);
