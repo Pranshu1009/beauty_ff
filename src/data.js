@@ -156,12 +156,12 @@ export const AVAILABLE_FOR = [
 ];
 
 export const CONTACT = {
-  phoneDisplay: "+91 98231 24595",
-  phoneTel: "+919823124595",
-  email: "tiwariprabhakar1008@gmail.com",
+  phoneDisplay: "+91 84337 71695",
+  phoneTel: "+918433771695",
+  email: "makeupbyroshani22@gmail.com",
   instagramHandle: "makeup.by_roshani",
   instagramUrl: "https://instagram.com/makeup.by_roshani",
-  whatsappUrl: "https://wa.me/919823124595",
+  whatsappUrl: "https://wa.me/918433771695",
 };
 
 export const SHOW_ITEMS = [
