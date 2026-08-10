@@ -268,11 +268,4 @@
     width: 100%;
     max-width: 20rem;
   }
-
-  .announcement {
-    font-size: 0.62rem;
-    letter-spacing: 0.04em;
-    padding: 0.5rem 0.75rem;
-    line-height: 1.35;
-  }
 }

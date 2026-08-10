@@ -4,13 +4,16 @@ import { useAuth } from "../../context/AuthContext";
 import { fileToDataUrl, usePortfolio } from "../../context/PortfolioContext";
 import { useShowWork } from "../../context/ShowWorkContext";
 import { useTestimonials } from "../../context/TestimonialsContext";
+import { useAnnouncement } from "../../context/AnnouncementContext";
 import AdminTestimonials from "./AdminTestimonials";
+import AdminAnnouncement from "./AdminAnnouncement";
 import "./AdminDashboard.css";
 
 const AREAS = [
   { id: "portfolio", label: "Portfolio" },
   { id: "tv", label: "TV Work" },
   { id: "testimonials", label: "Testimonials" },
+  { id: "announcement", label: "Banner" },
 ];
 
 export default function AdminDashboard() {
@@ -18,6 +21,7 @@ export default function AdminDashboard() {
   const portfolio = usePortfolio();
   const shows = useShowWork();
   const testimonials = useTestimonials();
+  const announcement = useAnnouncement();
   const navigate = useNavigate();
 
   const [area, setArea] = useState("portfolio");
@@ -46,11 +50,14 @@ export default function AdminDashboard() {
   const isPortfolio = area === "portfolio";
   const isTv = area === "tv";
   const isTestimonials = area === "testimonials";
+  const isAnnouncement = area === "announcement";
   const usingFallback = isPortfolio
     ? portfolio.usingFallback
     : isTv
       ? shows.usingFallback
-      : testimonials.usingFallback;
+      : isTestimonials
+        ? testimonials.usingFallback
+        : announcement.usingFallback;
 
   useEffect(() => {
     if (
@@ -265,7 +272,8 @@ export default function AdminDashboard() {
       </header>
 
       <p className="admin-note">
-        Manage Portfolio photos, TV show galleries, and client testimonials.
+        Manage Portfolio photos, TV show galleries, client testimonials, and the
+        top banner message.
       </p>
 
       {usingFallback && (
@@ -331,13 +339,17 @@ export default function AdminDashboard() {
                 ? portfolio.items.length
                 : tab.id === "tv"
                   ? shows.items.length
-                  : testimonials.items.length}
+                  : tab.id === "testimonials"
+                    ? testimonials.items.length
+                    : "•"}
             </span>
           </button>
         ))}
       </div>
 
-      {isTestimonials ? (
+      {isAnnouncement ? (
+        <AdminAnnouncement />
+      ) : isTestimonials ? (
         <AdminTestimonials />
       ) : (
         <>

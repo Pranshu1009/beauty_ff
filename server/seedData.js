@@ -75,6 +75,12 @@ export const DEFAULT_TESTIMONIAL_SECTION = {
     "Love notes from brides, celebrities, and creatives who trusted Roshani with their look.",
 };
 
+export const DEFAULT_ANNOUNCEMENT = {
+  title:
+    "Now booking bridal season & destination glam — limited slots available",
+  subtitle: "",
+};
+
 export const DEFAULT_TESTIMONIALS = [
   {
     name: "Manasi Ghosh",

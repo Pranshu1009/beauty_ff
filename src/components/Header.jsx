@@ -2,6 +2,7 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { NAV_LINKS } from "../data";
 import { useAuth } from "../context/AuthContext";
+import { useAnnouncement } from "../context/AnnouncementContext";
 import "./Header.css";
 
 export default function Header() {
@@ -9,6 +10,10 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { isOwner, logout } = useAuth();
+  const { text: announcementText } = useAnnouncement();
+  const banner =
+    announcementText ||
+    "Now booking bridal season & destination glam — limited slots available";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -23,8 +28,19 @@ export default function Header() {
 
   return (
     <>
-      <div className="announcement">
-        Now booking bridal season &amp; destination glam — limited slots available
+      <div className="announcement" role="status" aria-live="polite">
+        <div className="announcement-track">
+          <span className="announcement-item">{banner}</span>
+          <span className="announcement-item" aria-hidden="true">
+            {banner}
+          </span>
+          <span className="announcement-item" aria-hidden="true">
+            {banner}
+          </span>
+          <span className="announcement-item" aria-hidden="true">
+            {banner}
+          </span>
+        </div>
       </div>
       <header className={`site-header ${scrolled ? "scrolled" : ""}`}>
         <div className="header-inner">

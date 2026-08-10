@@ -9,6 +9,7 @@ import {
   DEFAULT_SHOWS,
   DEFAULT_TESTIMONIALS,
   DEFAULT_TESTIMONIAL_SECTION,
+  DEFAULT_ANNOUNCEMENT,
 } from "./seedData.js";
 
 export async function seedDefaults() {
@@ -80,5 +81,14 @@ export async function seedDefaults() {
       ...DEFAULT_TESTIMONIAL_SECTION,
     });
     console.log("Seeded testimonials section content");
+  }
+
+  const announcement = await SectionContent.findOne({ key: "announcement" });
+  if (!announcement) {
+    await SectionContent.create({
+      key: "announcement",
+      ...DEFAULT_ANNOUNCEMENT,
+    });
+    console.log("Seeded announcement banner text");
   }
 }
