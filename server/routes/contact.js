@@ -36,11 +36,6 @@ router.post("/", async (req, res) => {
       });
     }
 
-    const notifyEmail = (
-      process.env.CONTACT_NOTIFY_EMAIL ||
-      "akk99094@gmail.com"
-    ).trim();
-
     const payload = {
       access_key: accessKey,
       subject: `New website inquiry from ${name}`,
@@ -53,12 +48,6 @@ router.post("/", async (req, res) => {
       replyto: email,
       botcheck: false,
     };
-
-    // Ensure the client inbox also receives a copy (in case the access key
-    // was created under a different Gmail account).
-    if (notifyEmail) {
-      payload.ccemail = notifyEmail;
-    }
 
     const response = await fetchWithTimeout("https://api.web3forms.com/submit", {
       method: "POST",
