@@ -15,7 +15,7 @@ export default function Home() {
       <Portfolio />
       <Services limit={4} showAllLink />
       <TVWork />
-      <Academy />
+      <Academy preview />
       <Testimonials />
       <Contact />
     </>
