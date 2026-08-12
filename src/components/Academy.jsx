@@ -2,6 +2,13 @@ import { Link } from "react-router-dom";
 import { ACADEMY_GALLERY } from "../data";
 import "./Academy.css";
 
+const TOPICS = [
+  "Bridal & soft glam foundations",
+  "Camera & stage makeup technique",
+  "Hair styling essentials",
+  "Portfolio & client readiness",
+];
+
 function GalleryShot({ item }) {
   return (
     <figure className="academy-shot">
@@ -42,12 +49,12 @@ export default function Academy() {
         </div>
       </div>
 
-      <div className="container academy-footer">
-        <ul className="academy-points">
-          <li>Bridal & soft glam foundations</li>
-          <li>Camera & stage makeup technique</li>
-          <li>Hair styling essentials</li>
-          <li>Portfolio & client readiness</li>
+      <div className="container academy-cta">
+        <p className="academy-cta-label">What you’ll learn</p>
+        <ul className="academy-topics">
+          {TOPICS.map((topic) => (
+            <li key={topic}>{topic}</li>
+          ))}
         </ul>
         <Link to="/contact" className="btn btn-solid">
           Enquire Now

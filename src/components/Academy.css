@@ -1,6 +1,6 @@
 .academy-section {
   padding-top: clamp(2.5rem, 5vw, 4rem);
-  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.75rem, 5vw, 4.25rem);
   background: linear-gradient(180deg, var(--ivory) 0%, var(--dusty-rose-soft) 55%, var(--ivory-deep) 100%);
   overflow: hidden;
 }
@@ -75,38 +75,62 @@
   transform: scale(1.04);
 }
 
-.academy-footer {
+.academy-cta {
+  margin-top: clamp(1.85rem, 3.5vw, 2.75rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.1rem;
+  max-width: 780px;
+}
+
+.academy-cta-label {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--champagne);
+  font-weight: 500;
+}
+
+.academy-topics {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.25rem 2rem;
-  margin-top: clamp(1.75rem, 3vw, 2.5rem);
-}
-
-.academy-points {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.55rem 1.75rem;
+  gap: 0.55rem 0;
   margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 42rem;
 }
 
-.academy-points li {
-  font-size: 0.95rem;
-  color: var(--ink-soft);
-  padding-left: 1.1rem;
+.academy-topics li {
   position: relative;
+  color: var(--chocolate);
+  font-size: clamp(0.92rem, 1.6vw, 1.05rem);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  padding: 0 1rem;
+  line-height: 1.45;
 }
 
-.academy-points li::before {
+.academy-topics li:not(:last-child)::after {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 6px;
-  height: 6px;
+  right: 0;
+  top: 50%;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: var(--champagne);
+  transform: translate(50%, -50%);
+}
+
+.academy-cta .btn {
+  margin-top: 0.35rem;
+  min-width: 11rem;
 }
 
 @keyframes academy-marquee {
@@ -148,30 +172,29 @@
   .academy-shot img {
     height: min(320px, 92vw);
   }
-
-  .academy-footer {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: left;
-  }
-
-  .academy-points {
-    width: 100%;
-  }
-
-  .academy-footer .btn {
-    width: 100%;
-    max-width: 20rem;
-  }
 }
 
 @media (max-width: 560px) {
-  .academy-points {
-    grid-template-columns: 1fr;
-  }
-
   .academy-group {
     gap: 0.85rem;
     padding-right: 0.85rem;
+  }
+
+  .academy-topics {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .academy-topics li {
+    padding: 0;
+  }
+
+  .academy-topics li:not(:last-child)::after {
+    display: none;
+  }
+
+  .academy-cta .btn {
+    width: 100%;
+    max-width: 20rem;
   }
 }
