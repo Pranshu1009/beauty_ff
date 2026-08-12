@@ -237,7 +237,7 @@ export const ACADEMY_GALLERY = [
 export const IMAGES = {
   hero: "/images/hero-portrait.jpg",
   heroWide: "/images/hero-wide.jpg",
-  about: "/images/about-portrait.png?v=bts1",
+  about: "/images/about-portrait.png?v=portrait1",
   academy: "/images/academy.jpg?v=clr1",
   contact: "/images/contact-portrait.jpg?v=3",
 };
