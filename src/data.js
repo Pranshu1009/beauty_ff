@@ -11,10 +11,12 @@ export const NAV_LINKS = [
 
 export const HERO_STATS = [
   { value: "7+", label: "Years of Experience" },
-  { value: "40+", label: "Commercial Ads" },
-  { value: "5+", label: "Web Shows" },
+  { value: "45+", label: "Commercial Ads" },
+  { value: "30+", label: "Music Videos" },
+  { value: "12+", label: "Reality Shows" },
+  { value: "8+", label: "Web Series" },
+  { value: "35+", label: "Events" },
   { value: "15+", label: "Brides & Grooms" },
-  { value: "100+", label: "Happy Clients" },
 ];
 
 export const ABOUT_SPECIALTIES = [
@@ -108,10 +110,13 @@ export const TV_LOGOS = [
 ];
 
 export const TV_STATS = [
-  { value: "40+", label: "Commercial Ads" },
-  { value: "5+", label: "Web Shows" },
-  { value: "25+", label: "Live Events" },
-  { value: "12+", label: "Celebrity Artists" },
+  { value: "7+", label: "Years of Experience" },
+  { value: "45+", label: "Commercial Ads" },
+  { value: "30+", label: "Music Videos" },
+  { value: "12+", label: "Reality Shows" },
+  { value: "8+", label: "Web Series" },
+  { value: "35+", label: "Events" },
+  { value: "15+", label: "Brides & Grooms" },
 ];
 
 export const TESTIMONIALS = [
@@ -199,6 +204,33 @@ export const SHOW_ITEMS = [
     subtitle: "National celebration",
     image: "/images/tv-5.jpg?v=shows1",
     images: ["/images/tv-5.jpg?v=shows1"],
+  },
+];
+
+export const ACADEMY_GALLERY = [
+  {
+    src: "/images/academy-gallery-1.jpg",
+    alt: "Student practicing makeup at the academy vanity station",
+  },
+  {
+    src: "/images/academy-gallery-2.jpg",
+    alt: "Hands-on bridal makeup training at Creative Makeup & Hair Academy",
+  },
+  {
+    src: "/images/academy-gallery-3.jpg",
+    alt: "Artist focusing on palette work under studio lights",
+  },
+  {
+    src: "/images/academy-gallery-4.jpg",
+    alt: "Instructor demonstrating eye makeup technique",
+  },
+  {
+    src: "/images/academy-gallery-5.jpg",
+    alt: "Live bridal look practice session in the academy studio",
+  },
+  {
+    src: "/images/academy-gallery-6.jpg",
+    alt: "Close-up makeup application during academy training",
   },
 ];
 
