@@ -4,12 +4,14 @@ import PortfolioItem from "./models/PortfolioItem.js";
 import ShowItem from "./models/ShowItem.js";
 import Testimonial from "./models/Testimonial.js";
 import SectionContent from "./models/SectionContent.js";
+import AcademyImage from "./models/AcademyImage.js";
 import {
   DEFAULT_PORTFOLIO,
   DEFAULT_SHOWS,
   DEFAULT_TESTIMONIALS,
   DEFAULT_TESTIMONIAL_SECTION,
   DEFAULT_ANNOUNCEMENT,
+  DEFAULT_ACADEMY_GALLERY,
 } from "./seedData.js";
 
 export async function seedDefaults() {
@@ -90,5 +92,11 @@ export async function seedDefaults() {
       ...DEFAULT_ANNOUNCEMENT,
     });
     console.log("Seeded announcement banner text");
+  }
+
+  const academyCount = await AcademyImage.countDocuments();
+  if (academyCount === 0) {
+    await AcademyImage.insertMany(DEFAULT_ACADEMY_GALLERY);
+    console.log("Seeded default academy gallery");
   }
 }

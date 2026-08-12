@@ -7,6 +7,7 @@ import { PortfolioProvider } from "./context/PortfolioContext";
 import { ShowWorkProvider } from "./context/ShowWorkContext";
 import { TestimonialsProvider } from "./context/TestimonialsContext";
 import { AnnouncementProvider } from "./context/AnnouncementContext";
+import { AcademyProvider } from "./context/AcademyContext";
 import Home from "./pages/Home";
 import AboutPage from "./pages/AboutPage";
 import PortfolioPage from "./pages/PortfolioPage";
@@ -25,32 +26,34 @@ export default function App() {
         <PortfolioProvider>
           <ShowWorkProvider>
             <TestimonialsProvider>
-              <BrowserRouter>
-                <ScrollToTop />
-                <Routes>
-                  <Route path="admin/login" element={<AdminLogin />} />
-                  <Route
-                    path="admin"
-                    element={
-                      <ProtectedRoute>
-                        <AdminDashboard />
-                      </ProtectedRoute>
-                    }
-                  />
+              <AcademyProvider>
+                <BrowserRouter>
+                  <ScrollToTop />
+                  <Routes>
+                    <Route path="admin/login" element={<AdminLogin />} />
+                    <Route
+                      path="admin"
+                      element={
+                        <ProtectedRoute>
+                          <AdminDashboard />
+                        </ProtectedRoute>
+                      }
+                    />
 
-                  <Route element={<Layout />}>
-                    <Route index element={<Home />} />
-                    <Route path="about" element={<AboutPage />} />
-                    <Route path="portfolio" element={<PortfolioPage />} />
-                    <Route path="services" element={<ServicesPage />} />
-                    <Route path="tv-work" element={<TVWorkPage />} />
-                    <Route path="academy" element={<AcademyPage />} />
-                    <Route path="testimonials" element={<TestimonialsPage />} />
-                    <Route path="contact" element={<ContactPage />} />
-                    <Route path="*" element={<Navigate to="/" replace />} />
-                  </Route>
-                </Routes>
-              </BrowserRouter>
+                    <Route element={<Layout />}>
+                      <Route index element={<Home />} />
+                      <Route path="about" element={<AboutPage />} />
+                      <Route path="portfolio" element={<PortfolioPage />} />
+                      <Route path="services" element={<ServicesPage />} />
+                      <Route path="tv-work" element={<TVWorkPage />} />
+                      <Route path="academy" element={<AcademyPage />} />
+                      <Route path="testimonials" element={<TestimonialsPage />} />
+                      <Route path="contact" element={<ContactPage />} />
+                      <Route path="*" element={<Navigate to="/" replace />} />
+                    </Route>
+                  </Routes>
+                </BrowserRouter>
+              </AcademyProvider>
             </TestimonialsProvider>
           </ShowWorkProvider>
         </PortfolioProvider>

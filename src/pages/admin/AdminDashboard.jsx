@@ -5,14 +5,17 @@ import { fileToDataUrl, usePortfolio } from "../../context/PortfolioContext";
 import { useShowWork } from "../../context/ShowWorkContext";
 import { useTestimonials } from "../../context/TestimonialsContext";
 import { useAnnouncement } from "../../context/AnnouncementContext";
+import { useAcademy } from "../../context/AcademyContext";
 import AdminTestimonials from "./AdminTestimonials";
 import AdminAnnouncement from "./AdminAnnouncement";
+import AdminAcademy from "./AdminAcademy";
 import "./AdminDashboard.css";
 
 const AREAS = [
   { id: "portfolio", label: "Portfolio" },
   { id: "tv", label: "TV Work" },
   { id: "testimonials", label: "Testimonials" },
+  { id: "academy", label: "Academy" },
   { id: "announcement", label: "Banner" },
 ];
 
@@ -22,6 +25,7 @@ export default function AdminDashboard() {
   const shows = useShowWork();
   const testimonials = useTestimonials();
   const announcement = useAnnouncement();
+  const academy = useAcademy();
   const navigate = useNavigate();
 
   const [area, setArea] = useState("portfolio");
@@ -50,6 +54,7 @@ export default function AdminDashboard() {
   const isPortfolio = area === "portfolio";
   const isTv = area === "tv";
   const isTestimonials = area === "testimonials";
+  const isAcademy = area === "academy";
   const isAnnouncement = area === "announcement";
   const usingFallback = isPortfolio
     ? portfolio.usingFallback
@@ -57,7 +62,9 @@ export default function AdminDashboard() {
       ? shows.usingFallback
       : isTestimonials
         ? testimonials.usingFallback
-        : announcement.usingFallback;
+        : isAcademy
+          ? academy.usingFallback
+          : announcement.usingFallback;
 
   useEffect(() => {
     if (
@@ -272,7 +279,7 @@ export default function AdminDashboard() {
       </header>
 
       <p className="admin-note">
-        Manage Portfolio photos, TV show galleries, client testimonials, and the
+        Manage Portfolio, TV Work, testimonials, academy gallery photos, and the
         top banner message.
       </p>
 
@@ -341,7 +348,9 @@ export default function AdminDashboard() {
                   ? shows.items.length
                   : tab.id === "testimonials"
                     ? testimonials.items.length
-                    : "•"}
+                    : tab.id === "academy"
+                      ? academy.items.length
+                      : "•"}
             </span>
           </button>
         ))}
@@ -349,6 +358,8 @@ export default function AdminDashboard() {
 
       {isAnnouncement ? (
         <AdminAnnouncement />
+      ) : isAcademy ? (
+        <AdminAcademy />
       ) : isTestimonials ? (
         <AdminTestimonials />
       ) : (

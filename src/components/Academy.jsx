@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ACADEMY_GALLERY } from "../data";
+import { useAcademy } from "../context/AcademyContext";
 import "./Academy.css";
 
 const TOPICS = [
@@ -12,12 +12,15 @@ const TOPICS = [
 function GalleryShot({ item }) {
   return (
     <figure className="academy-shot">
-      <img src={item.src} alt={item.alt} loading="lazy" />
+      <img src={item.image} alt={item.alt} loading="lazy" />
     </figure>
   );
 }
 
 export default function Academy() {
+  const { items } = useAcademy();
+  const loop = items.length >= 2;
+
   return (
     <section className="section academy-section" id="academy">
       <div className="container academy-intro">
@@ -31,23 +34,37 @@ export default function Academy() {
         </p>
       </div>
 
-      <div className="academy-scroller" aria-label="Academy teaching gallery">
-        <div
-          className="academy-track"
-          style={{ "--academy-duration": `${Math.max(ACADEMY_GALLERY.length * 7, 36)}s` }}
-        >
-          <div className="academy-group">
-            {ACADEMY_GALLERY.map((item) => (
-              <GalleryShot key={item.src} item={item} />
-            ))}
-          </div>
-          <div className="academy-group" aria-hidden="true">
-            {ACADEMY_GALLERY.map((item) => (
-              <GalleryShot key={`loop-${item.src}`} item={item} />
-            ))}
+      {items.length === 0 ? (
+        <div className="container">
+          <p className="portfolio-empty">Academy photos coming soon.</p>
+        </div>
+      ) : (
+        <div className="academy-scroller" aria-label="Academy teaching gallery">
+          <div
+            className="academy-track"
+            style={{
+              "--academy-duration": `${Math.max(items.length * 7, 28)}s`,
+              animationPlayState: loop ? undefined : "paused",
+            }}
+          >
+            <div className="academy-group">
+              {items.map((item) => (
+                <GalleryShot key={item.id || item.image} item={item} />
+              ))}
+            </div>
+            {loop ? (
+              <div className="academy-group" aria-hidden="true">
+                {items.map((item) => (
+                  <GalleryShot
+                    key={`loop-${item.id || item.image}`}
+                    item={item}
+                  />
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
-      </div>
+      )}
 
       <div className="container academy-cta">
         <p className="academy-cta-label">What you’ll learn</p>

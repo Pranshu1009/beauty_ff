@@ -81,6 +81,33 @@ export const DEFAULT_ANNOUNCEMENT = {
   subtitle: "",
 };
 
+export const DEFAULT_ACADEMY_GALLERY = [
+  {
+    image: "/images/academy-gallery-1.jpg",
+    alt: "Student practicing makeup at the academy vanity station",
+  },
+  {
+    image: "/images/academy-gallery-2.jpg",
+    alt: "Hands-on bridal makeup training at Creative Makeup & Hair Academy",
+  },
+  {
+    image: "/images/academy-gallery-3.jpg",
+    alt: "Artist focusing on palette work under studio lights",
+  },
+  {
+    image: "/images/academy-gallery-4.jpg",
+    alt: "Instructor demonstrating eye makeup technique",
+  },
+  {
+    image: "/images/academy-gallery-5.jpg",
+    alt: "Live bridal look practice session in the academy studio",
+  },
+  {
+    image: "/images/academy-gallery-6.jpg",
+    alt: "Close-up makeup application during academy training",
+  },
+];
+
 export const DEFAULT_TESTIMONIALS = [
   {
     name: "Manasi Ghosh",

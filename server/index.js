@@ -8,6 +8,7 @@ import showRoutes from "./routes/shows.js";
 import contactRoutes from "./routes/contact.js";
 import testimonialRoutes from "./routes/testimonials.js";
 import announcementRoutes from "./routes/announcement.js";
+import academyRoutes from "./routes/academy.js";
 import { seedDefaults } from "./seed.js";
 
 const app = express();
@@ -26,6 +27,7 @@ app.use("/api/shows", showRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api/announcement", announcementRoutes);
+app.use("/api/academy", academyRoutes);
 
 async function start() {
   const uri = process.env.MONGODB_URI;
