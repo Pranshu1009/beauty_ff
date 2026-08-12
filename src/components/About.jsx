@@ -26,7 +26,7 @@ export default function About({ compact = false }) {
         </div>
 
         <div className="about-media fade-up fade-up-delay-1">
-          <img src={IMAGES.about} alt="Roshani Chaurasiya" />
+          <img src={IMAGES.about} alt="Roshani Chaurasiya working on set" />
         </div>
       </div>
 
