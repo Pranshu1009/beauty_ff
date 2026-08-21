@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import StatsBar from "./StatsBar";
-import { TV_STATS } from "../data";
 import { useShowWork } from "../context/ShowWorkContext";
 import "./TVWork.css";
 
@@ -81,7 +79,6 @@ export default function TVWork() {
           )}
         </div>
 
-        <StatsBar stats={TV_STATS} variant="section" />
       </div>
 
       {activeShow && (

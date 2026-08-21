@@ -2,6 +2,7 @@ import "dotenv/config";
 import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
+
 import authRoutes from "./routes/auth.js";
 import portfolioRoutes from "./routes/portfolio.js";
 import showRoutes from "./routes/shows.js";
@@ -9,12 +10,25 @@ import contactRoutes from "./routes/contact.js";
 import testimonialRoutes from "./routes/testimonials.js";
 import announcementRoutes from "./routes/announcement.js";
 import academyRoutes from "./routes/academy.js";
+
 import { seedDefaults } from "./seed.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// CORS configuration
+const allowedOrigin =
+  process.env.FRONTEND_URL || "http://localhost:5173";
+
+app.use(
+  cors({
+    origin: allowedOrigin,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json({ limit: "12mb" }));
 
 app.get("/api/health", (_req, res) => {
@@ -31,13 +45,16 @@ app.use("/api/academy", academyRoutes);
 
 async function start() {
   const uri = process.env.MONGODB_URI;
+
   if (!uri) {
     console.error("Missing MONGODB_URI in .env");
     process.exit(1);
   }
 
   await mongoose.connect(uri);
+
   console.log("Connected to MongoDB Atlas");
+
   await seedDefaults();
 
   app.listen(PORT, () => {
